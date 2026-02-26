@@ -25,7 +25,7 @@ async def get_screenshot():
     return bio
 
 # Обработчик команды /start
-@dp.message(Command("start"))
+@dp.message((F.from_user.id == 428030603) & (F.text == '/start'))
 async def cmd_start(message: types.Message):
     # Создаем две кнопки в одном ряду
     builder = InlineKeyboardBuilder()
