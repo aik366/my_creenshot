@@ -1,10 +1,10 @@
 @echo off
+cd /d "%~dp0"
 
-call %~dp0.venv\Scripts\activate
+:: Активация виртуального окружения
+call .venv\Scripts\activate.bat
 
-cd %~dp0
-
-
+:: Запуск бота
 python run.py
 
 pause
