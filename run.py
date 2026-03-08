@@ -82,7 +82,6 @@ async def cmd_start(message: types.Message):
     )
     
     await message.answer(
-        "🖥 **Бот скриншотов для Windows 10**\n\n"
         "Выберите формат отправки скриншота:",
         reply_markup=builder.as_markup(),
         parse_mode="Markdown"
@@ -101,15 +100,23 @@ async def process_screenshot(callback: types.CallbackQuery):
             filename=f"screenshot_{int(asyncio.get_event_loop().time())}.png"
         )
         
+        builder = InlineKeyboardBuilder()
+        builder.row(
+        InlineKeyboardButton(text="🖼️ Как фото", callback_data="screen_photo"),
+        InlineKeyboardButton(text="📁 Как файл", callback_data="screen_file")
+        )
+        
         if callback.data == "screen_photo":
             await callback.message.answer_photo(
                 photo=file,
-                caption="🖼️ Скриншот вашего Windows 10 (как изображение)"
+                reply_markup=builder.as_markup(),
+                parse_mode="Markdown"
             )
         else:
             await callback.message.answer_document(
                 document=file,
-                caption="📁 Скриншот вашего Windows 10 (как файл)",
+                reply_markup=builder.as_markup(),
+                parse_mode="Markdown"
             )
             
     except Exception as e:
